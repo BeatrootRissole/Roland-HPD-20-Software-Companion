@@ -1,0 +1,21 @@
+﻿PASS  AIFF 16-bit big-endian decodes (22050 frames, peak 0.50)
+PASS  AIFF-C sowt (little-endian) decodes (22050 frames, peak 0.50)
+PASS  AIFF-C fl32 float decodes (22050 frames, peak 0.55)
+PASS  CAF lpcm 16-bit decodes (22050 frames, peak 0.50)
+PASS  CAF lpcm 24-bit decodes (22050 frames, peak 0.50)
+PASS  AU 16-bit decodes (22050 frames, peak 0.50)
+PASS  AU mu-law 8-bit decodes (22050 frames, peak 0.51)
+PASS  WAV A-law decodes (22050 frames, peak 0.49)
+PASS  WAV mu-law decodes (22050 frames, peak 0.51)
+PASS  supported extensions include the new formats
+PASS  unknown extension is rejected
+PASS  AIFF converts to 44.1k/16-bit mono
+PASS  converted file is 44100 Hz mono 16-bit
+PASS  CAF converts to 44.1k/16-bit mono
+PASS  Media Foundation decodes a test file
+      MF returned 44100 frames, 1 ch @ 44100
+PASS  decode sample.flac (decoded by Windows Media Foundation, 44100 Hz)
+PASS  decode sample.mp3 (decoded by Windows Media Foundation, 44100 Hz)
+SKIP  sample.ogg - no decoder available (0xC00D36C4). Windows has no built-in Ogg/Opus decoder. Install the free "Web Media Extensions" package from the Microsoft Store and this file will decode; otherwise convert it to WAV or FLAC first.
+
+FORMAT CHECKS PASSED

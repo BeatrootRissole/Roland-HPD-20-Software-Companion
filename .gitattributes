@@ -1,0 +1,6 @@
+# Normalise line endings in the repository; keep images byte-exact.
+* text=auto eol=lf
+*.ps1 text eol=crlf
+*.cs  text eol=crlf
+*.png binary
+*.exe binary

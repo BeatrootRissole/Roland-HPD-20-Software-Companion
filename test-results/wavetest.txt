@@ -1,0 +1,57 @@
+﻿PASS  source segment is 1 s
+PASS  trim keeps the requested length
+PASS  trim starts at the right sample
+PASS  trim ends at the right sample
+PASS  delete removes exactly the selection
+PASS  delete joins the two sides
+PASS  insert lengthens the segment
+PASS  insert places the copy at the cursor
+PASS  insert keeps the tail
+PASS  replace swaps the selection for the clipboard
+PASS  replace puts the clipboard content in place
+PASS  silence zeroes only the selection
+PASS  fade in starts at zero
+PASS  fade in ends at full
+PASS  fade out ends near zero
+PASS  reverse flips the ends
+PASS  normalise brings the peak up
+PASS  slice into 4 gives 4 pieces
+PASS  slice into 4 keeps every sample
+PASS  slice pieces are contiguous
+PASS  auto-slice finds three bursts
+PASS  auto-slice keeps burst lengths
+PASS  concat uses the first rate
+PASS  concat resamples the second clip
+PASS  concat downmixes when channel counts differ
+PASS  concat total length is right
+PASS  match resamples to the target rate
+PASS  match upmixes to two channels
+PASS  edited clip converts to the HPD-20 spec
+PASS  converted edit is 44.1 kHz mono 16-bit
+PASS  converted edit is the expected length
+PASS  history starts with two steps
+PASS  undo returns the previous version
+PASS  undo moves a step to redo
+PASS  undo again reaches the original
+PASS  redo returns the first edit
+PASS  redo depth shrinks
+PASS  a new edit clears the redo stack
+PASS  history keeps only the limit
+PASS  history trims by memory too
+PASS  edited clip differs from the original
+PASS  undoing every step restores the original audio
+PASS  playback buffer has the right length
+PASS  playback buffer interleaves channels
+PASS  playback buffer starts at the requested sample
+PASS  playback buffer clips instead of wrapping
+PASS  playback buffer handles an empty clip
+PASS  edge fade silences the first and last sample
+PASS  edge fade keeps the middle untouched
+PASS  padded clip is one second
+PASS  trim silence keeps the sound only
+PASS  trim silence starts just before the tone
+PASS  a clip with no silence is left alone
+PASS  an all-silent clip collapses to a stub
+PASS  trim silence looks at all channels
+
+WAVE CHECKS PASSED

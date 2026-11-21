@@ -133,7 +133,63 @@ p. 34:
 | Length | 6:00 maximum per file |
 | Capacity | 500 user instruments, 12:00 total |
 
-**Resampling.** Add files or a whole folder, set the options, press **Batch resample**:
+**Input.** Drop in WAV, AIFF/AIFF-C, CAF, AU, MP3, FLAC, M4A/AAC, WMA — or OGG/Opus if the free
+"Web Media Extensions" package from the Microsoft Store is installed. NCW (Steinberg) cannot be read;
+export it as WAV from the Steinberg software first. Anything Windows cannot decode is listed with the
+reason and the remedy.
+
+**Dark mode.** The switch in the top bar, next to Connect, recolours the whole window — every tab, the
+title bar and the waveform — and applies immediately from anywhere in the app. The setting is saved to
+`%APPDATA%\HPD20Companion\ui.ini` and restored next time. Some native controls (the progress bar, the
+jog slider, dropdown lists) keep their system look in dark mode.
+
+**Resizing.** Every boundary in this tab drags: the browser width, the split between the queue and the
+waveform editor, and the clip list width inside the editor. The window itself can be maximised, and the
+layout follows.
+
+**Drag and drop.** Select one or more files in the browser and drag them onto the waveform editor to
+load them (the first replaces the current clip, any others are appended), or onto the queue list to add
+them for conversion. Files can also be dragged in from Windows Explorer.
+
+Dragging works the other way too: rows dragged **out of the queue** and dropped on the editor open that
+file for editing. Once a queued file has been resampled, the drag carries the converted 44.1 kHz WAV
+instead of the original, so you can check or rework exactly what will be written to the stick.
+
+**Browsing for files.** The left side of the tab is a Windows Explorer-style browser: expand a drive in
+the tree to reach a folder, and its audio files appear in the list below (non-audio files are hidden).
+**Add** queues the selection, **Add all** queues everything in the folder, and double-clicking a file
+queues it. **Open clip...** in the editor loads a file for editing without queueing it.
+
+**Waveform editor.** It sits in the lower half of the tab and works on one clip at a time.
+
+| To do this | Do that |
+|---|---|
+| Keep part of a clip | Drag a selection, press **Trim** |
+| Remove a section | Select it, press **Delete** (closes the gap) or **Cut** |
+| Move a piece elsewhere | **Cut**, click where it should go, **Paste** |
+| Replace a section | **Copy** a piece, select the target, **Paste** |
+| Chop into equal parts | Set **Slice into** N, press **Slice** |
+| Chop at the silences | Set **Silence dB** and **gap ms**, press **Auto-slice** |
+| Rebuild a new sample | Reorder with **Move up/down**, add more with **Append clip...**, then **Send to samples** |
+| Tidy levels | **Normalize**, **Fade in/out**, **Reverse** |
+| Strip silence from the ends | Select one or more clips in the list, set **Silence dB**, press **Trim silence** |
+| Undo a whole batch | One **Undo** (Ctrl+Z) reverses every clip that was trimmed together |
+| Audition a clip | **Play** (or Space) starts at the cursor, or plays just the selection; **Stop** halts it |
+| Scrub through the clip | Drag the **jog** slider — playback restarts from wherever you drop it |
+| Take back a mistake | **Undo** (Ctrl+Z) / **Redo** (Ctrl+Y) — the button shows how many steps are available |
+
+Mouse: drag to select, wheel to zoom, shift-drag or middle-drag to pan, double-click to select all.
+**Send to samples** renders every clip in list order and adds the WAVs to the conversion queue, so the
+same 44.1 kHz / 16-bit conversion and USB export apply. Undo history keeps the last 30 edits (or 256 MB
+of audio), and undoing everything restores the clip byte for byte.
+
+Playback goes straight to the default Windows output device, so what you hear is the clip as stored —
+not the HPD-20's own instrument voicing. Audio is streamed with four 80 ms buffers kept queued, so there
+are no gaps mid-clip, and a 3 ms fade is applied at the start and end so auditioning a selection does not
+click. Jogging while playing restarts the stream at the new position; press Stop first for the cleanest
+scrub.
+
+**Resampling.** Queue files with the browser, set the options, press **Batch resample**:
 
 - **Mono** downmixes stereo material (halves the memory it uses on the unit).
 - **Normalise** raises the peak to just under full scale.
@@ -254,7 +310,9 @@ assignment still has to be set in its menu.
 | `--padtest <file>` | pad placement, jacks and hit-testing |
 | `--selftest <file>` | kit mapping, checksum, port enumeration, SysEx round trip |
 | `--uitest <file>` | connect → send kit → receive → disconnect through the UI |
-| `--audiotest <file>` | WAV decoding and resampling |
+| `--audiotest <file>` | resampling, trimming, truncation |
+| `--formattest <file>` | every supported container, plus a Media Foundation probe |
+| `--wavetest <file>` | waveform editing operations and render-to-convert |
 | `--usbtest <file>` | USB export layout and naming |
 | `--backuptest <file>` | backup structure, fields, MD5, corruption handling |
 | `--backupcheck <backup> [report]` | validate a real backup file and round-trip it |

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
@@ -75,6 +75,8 @@ namespace Hpd20Ctrl
             {
                 case 1: desc = "PCM " + bits + "-bit"; break;
                 case 3: desc = "float " + bits + "-bit"; break;
+                case 6: desc = "A-law 8-bit"; break;
+                case 7: desc = "u-law 8-bit"; break;
                 default: throw new InvalidDataException("unsupported WAV format " + format);
             }
 
@@ -93,6 +95,8 @@ namespace Hpd20Ctrl
                         if (bits == 32) v = BitConverter.ToSingle(b, p);
                         else v = (float)BitConverter.ToDouble(b, p);
                     }
+                    else if (format == 6) v = AudioFormats.ALaw(b[p]);
+                    else if (format == 7) v = AudioFormats.MuLaw(b[p]);
                     else
                     {
                         switch (bits)
@@ -237,7 +241,7 @@ namespace Hpd20Ctrl
             r.OutputPath = outputPath;
             try
             {
-                WavData d = WavFile.Read(sourcePath);
+                WavData d = AudioFormats.Read(sourcePath);
                 r.SourceSeconds = d.DurationSeconds;
                 r.SourceFormat = d.SampleRate + " Hz, " + d.Channels + " ch, " + d.FormatDescription;
 
@@ -506,4 +510,5 @@ namespace Hpd20Ctrl
         }
     }
 }
+
 

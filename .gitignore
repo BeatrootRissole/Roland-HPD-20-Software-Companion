@@ -4,6 +4,9 @@ dist/
 *.pdb
 *.obj
 
+# Release staging used by CI
+out/
+
 # Test scratch (the recorded results in test-results/ are committed on purpose)
 *.tmp
 *.log

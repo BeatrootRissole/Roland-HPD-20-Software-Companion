@@ -1,9 +1,12 @@
-# Roland Handsonic HPD-20 Software Companion for Windows 10+
+# HPD-20 Companion
 
 **A Windows companion app for the Roland HandSonic HPD-20.** Play the pads from your screen, change
 kits over MIDI, convert samples to the import format, mirror a real backup onto the pad display, and
 edit the complete memory image offline before writing it back to a USB stick.
 
+[![build](https://github.com/BeatrootRissole/Roland-HPD-20-Software-Companion/actions/workflows/build.yml/badge.svg)](https://github.com/BeatrootRissole/Roland-HPD-20-Software-Companion/actions/workflows/build.yml)
+[![release](https://img.shields.io/github/v/release/BeatrootRissole/Roland-HPD-20-Software-Companion)](https://github.com/BeatrootRissole/Roland-HPD-20-Software-Companion/releases)
+[![licence](https://img.shields.io/github/license/BeatrootRissole/Roland-HPD-20-Software-Companion)](LICENSE)
 ![Pads tab](screenshots/pads.png)
 
 A single 230 KB executable. No installer, no runtime to download, no third-party libraries: it builds
@@ -69,12 +72,68 @@ Backup Editor and the tiles change with it.
 **Kits** — all 200 kits with the documented bank/program mapping, kit follow, All Sound Off, Reset
 Controllers, and local kit labels.
 
-**Samples** — batch resample any WAV (PCM 8/16/24/32-bit or float, any rate, mono or stereo) to the
-import format: 44.1 kHz, 16-bit, 6:00 maximum. Windowed-sinc rate conversion, optional mono downmix,
-normalise, silence trim, edge fades. Then write a pack to a USB stick — root copies in ASCII names for
-the unit, an organised folder for you.
+**Samples** — one screen for the whole sample workflow: a Windows Explorer-style browser on the left
+(drives and folders in a tree, the audio files in that folder below, double-click or **Add** to queue
+them), the conversion queue and options in the middle, and the waveform editor embedded across the
+bottom. Every pane has a draggable splitter, and files can be dragged from the browser straight into
+the editor or onto the queue. Rows dragged **out of the queue** hand the editor the converted
+44.1 kHz WAV once that file has been resampled, so a finished sample can be dropped back in for
+further editing.
+
+Batch conversion resamples almost any audio file to the import format: 44.1 kHz, 16-bit, 6:00 maximum.
+Windowed-sinc rate conversion, optional mono downmix, normalise, silence trim, edge fades. Then write a
+pack to a USB stick — root copies in ASCII names for the unit, an organised folder for you.
 
 ![Samples tab](screenshots/samples.png)
+
+### Supported audio formats
+
+| Format | Extensions | How |
+|---|---|---|
+| WAV (PCM 8/16/24/32-bit, float, A-law, µ-law) | `.wav` `.wave` | built in |
+| AIFF / AIFF-C (big-endian, `sowt`, float) | `.aif` `.aiff` `.aifc` | built in |
+| CAF (uncompressed LPCM) | `.caf` | built in |
+| AU / SND (PCM, float, A-law, µ-law) | `.au` `.snd` | built in |
+| MP3 | `.mp3` | Windows Media Foundation |
+| FLAC | `.flac` | Windows Media Foundation |
+| AAC / ALAC in MP4 | `.m4a` `.aac` `.mp4` | Windows Media Foundation |
+| WMA | `.wma` | Windows Media Foundation |
+| OGG / Vorbis / Opus | `.ogg` `.oga` `.opus` | Media Foundation **only with the free "Web Media Extensions" package from the Microsoft Store** |
+| NCW | `.ncw` | **not supported** — Steinberg's proprietary format has no Windows decoder; export as WAV from the Steinberg software |
+
+Everything is resampled to the HPD-20's own specification no matter what goes in, so a 48 kHz stereo
+MP3 and a 22 kHz mono AIFF both come out as 44.1 kHz / 16-bit and ready for `MENU → USER INST → IMPORT`.
+When Windows cannot decode a file, the Samples list says why and how to fix it rather than failing
+silently.
+
+### Waveform editor
+
+The editor is built into the lower half of the Samples tab, so browsing, chopping and converting happen
+in one place. Load a clip with **Open clip...**, or from the browser list.
+
+- **Chop** — drag a selection and use Trim / Cut / Delete / Silence, or cut automatically: **Slice**
+  into *N* equal pieces, or **Auto-slice** at every silence longer than a chosen gap (ideal for a drum
+  loop or a sample pack recorded as one file).
+- **Recombine** — every piece becomes its own clip in the list; **Move up / Move down** to reorder,
+  **Append clip...** to add more material, **Remove** to drop what you do not want. Rendering joins the
+  list end to end, resampling and downmixing anything that does not match.
+- **Trim silence** — removes leading and trailing silence from **every clip selected in the list** in one
+  step, using the same Silence dB level as auto-slice and keeping a 5 ms margin so the attack is not cut.
+  One Ctrl+Z puts all of them back.
+- **Shape** — Fade in/out, Reverse, Normalize, Copy/Paste at the cursor or over a selection.
+- **Audition** — **Play** starts playback from the cursor (or plays just the selection), **Stop** halts
+  it, and the **jog** slider scrubs: while playing, the audio restarts from wherever you drag to. Space
+  toggles play/stop, and the green playhead tracks the audio while the time read-out shows position and
+  length to the millisecond.
+- **Convert** — **Send to samples** renders the list to WAV and drops it into the Samples queue, where
+  the usual 44.1 kHz / 16-bit conversion and USB export take over.
+- **Undo / Redo** — every edit is reversible (**Undo**/**Redo** buttons, Ctrl+Z / Ctrl+Y or Ctrl+Shift+Z).
+  The history keeps 30 steps or 256 MB, whichever comes first, and undoing all the way returns the clip
+  to exactly its original samples.
+
+The view zooms with the wheel, pans with shift-drag or middle-drag, and double-click selects everything.
+Every operation is also a pure function covered by `--wavetest`, so the audio maths is verified
+independently of the window.
 
 **Backup Editor** — opens `BKUP-nnn.HS0` images: all 200 kits and 3,400 pads (two layers, 850 named
 instruments), the 15 chain names, and the header. Saves recompute the MD5 trailer, and an unedited file
@@ -90,6 +149,12 @@ how you find out what a change on the instrument actually wrote.
 
 **Monitor / SysEx / Device** — decoded MIDI monitor, raw SysEx console with a Roland checksum helper,
 and Identity Reply parsing.
+
+**Dark or light** — a **Dark mode** switch sits in the top bar, outside the tabs, so it is visible and
+changeable from anywhere in the app. It recolours every tab, the title bar and the custom-drawn
+waveform, and the choice is remembered in `%APPDATA%\HPD20Companion\ui.ini`.
+
+![Dark mode](screenshots/samples-dark.png)
 
 **Hover help everywhere** — every control on every tab explains itself: what you are hovering over,
 what it does, and how to use it. On the Pads tab the line under the surface additionally describes the
@@ -114,7 +179,7 @@ bytes is not confirmed, so the app does not offer to change them.
 
 ## Requirements
 
-- Windows 10 or 11 (x64). .NET Framework 4.x is part of Windows.
+- Windows 10 or 11 (x64) for the **GUI**. .NET Framework 4.x is part of Windows.
 - For MIDI: the Roland USB driver and the HPD-20 on USB.
 - For sample import: a USB flash drive.
 - Nothing else — no .NET SDK, no Visual Studio, no Python.
@@ -127,8 +192,54 @@ cd hpd20-companion
 .\build.ps1
 ```
 
-Produces `dist\HPD20Companion.exe`. Add `-Test` to run every suite, optionally with
-`-BackupPath <file>` to include a real-backup check.
+Produces `dist\HPD20Companion.exe` and `dist\cli\hpd20cli.exe`. Add `-Test` to run every suite,
+optionally with `-BackupPath <file>` to include a real-backup check. `-SkipCli` builds only the GUI.
+
+## Releasing
+
+Tags drive it. Pushing a tag that starts with `v` runs `.github/workflows/release.yml`, which builds,
+runs every suite, and attaches `HPD20Companion.exe` and the CLI to the release, taking the notes from the
+matching `CHANGELOG.md` entry:
+
+```powershell
+git tag v1.6.2
+git push origin v1.6.2
+```
+
+`.github/workflows/build.yml` runs the same build and tests on every push and pull request, and keeps the
+executables as workflow artifacts. Binaries are never committed - `dist/` and `*.exe` are ignored, and the
+release assets are the only place a compiled binary lives.
+
+## Cross-platform command line
+
+The GUI cannot be ported as it stands: it is WinForms, and it calls `winmm` for MIDI and audio output.
+The **audio, backup and editing engine** behind it is plain C# with no Windows dependencies, and
+`cli/` builds that engine as a command line tool for **Windows, Linux and macOS**:
+
+```bash
+dotnet build cli                  # or: dotnet run --project cli -- --help
+hpd20cli info sample.flac
+hpd20cli convert *.aiff --out converted --mono --normalise --trim --fade
+hpd20cli backup-info BKUP-001.HS0
+hpd20cli backup-diff old.HS0 new.HS0
+hpd20cli formats
+```
+
+| Command | What it does |
+|---|---|
+| `convert <files> --out <dir>` | resample anything readable to the HPD-20's 44.1 kHz / 16-bit WAV |
+| `info <file>` | format, rate, channels, length and peak level |
+| `backup-info <file.HS0>` | header, firmware, MD5 check and a kit listing |
+| `backup-diff <a> <b>` | field-by-field and byte-by-byte comparison of two images |
+| `formats` | what this build can read on this platform |
+
+Uncompressed WAV, AIFF/AIFF-C, CAF and AU work on every platform. MP3, FLAC, AAC and WMA are decoded
+through Media Foundation, so they are available in the Windows build only; `convert` tells you so
+plainly rather than producing silence. Targeting `net8.0` by default — change `TargetFramework` in
+`cli/Hpd20Cli.csproj` if your SDK is newer.
+
+The repository builds the same CLI with the in-box C# compiler as a portability check, so the shared
+sources are verified to compile without WinForms on every build.
 
 ## Quick start
 
@@ -147,16 +258,25 @@ Full walkthroughs are in **[USAGE.md](USAGE.md)**.
 .\dist\HPD20Companion.exe --padtest      test-results\padtest.txt      # 30 checks: pad placement, jacks, hit-testing
 .\dist\HPD20Companion.exe --hwtest       test-results\hwtest.txt       # 11 checks: identity, note, kit change, teardown
 .\dist\HPD20Companion.exe --selftest     test-results\selftest.txt     # 19 checks: kit mapping, checksum, SysEx round trip
-.\dist\HPD20Companion.exe --uitest       test-results\uitest.txt       # 14 checks: UI path + backup-to-pads mirroring
-.\dist\HPD20Companion.exe --audiotest    test-results\audiotest.txt    # 16 checks: formats, resampling, trim, truncation
+.\dist\HPD20Companion.exe --uitest       test-results\uitest.txt       # 11 checks: UI path, pad mirroring, drag payloads
+.\dist\HPD20Companion.exe --audiotest    test-results\audiotest.txt    # 16 checks: resampling, trim, truncation
+.\dist\HPD20Companion.exe --formattest   test-results\formattest.txt   # 17 checks: WAV/AIFF/CAF/AU/A-law/µ-law + MF probe
+.\dist\HPD20Companion.exe --wavetest      test-results\wavetest.txt      # 55 checks: chop, join, slice, fades, silence, undo, audition
 .\dist\HPD20Companion.exe --usbtest      test-results\usbtest.txt      # 15 checks: root layout, naming, archive
 .\dist\HPD20Companion.exe --backuptest   test-results\backuptest.txt   # 40 checks: offsets, MD5, field round trip
 .\dist\HPD20Companion.exe --backupcheck  <file>.HS0 test-results\backupcheck.txt       # 15 checks on a real image
 .\dist\HPD20Companion.exe --backupdiff   <a>.HS0 <b>.HS0 test-results\backupdiff.txt   # what changed between two images
 ```
 
-Recorded output is committed under `test-results/`. Set `HPD20_TEST_BACKUP` to a backup path before
-`--uitest` to include the pad-mirroring checks.
+The portable CLI is compiled and exercised by the same script; its report lands in
+`test-results/clitest.txt` (5 checks: read, convert, verify the output spec, list formats, validate a
+real backup).
+
+Recorded output is committed under `test-results/`. Current state: **234 checks, 0 failures**, plus two
+skips that need hardware or a Store codec (the OGG file, and the user backup on an unplugged stick).
+Set `HPD20_TEST_BACKUP` to a backup path before `--uitest` to include the pad-mirroring checks, and
+`HPD20_TEST_MEDIA` to a folder of audio files to decode real MP3/FLAC/OGG alongside the container
+tests.
 
 ## Project layout
 

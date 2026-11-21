@@ -1,0 +1,7 @@
+﻿PASS  info reads an AIFF
+PASS  convert writes a WAV
+PASS  converted file is 44.1 kHz mono 16-bit
+PASS  formats lists the containers
+PASS  backup-info validates a real image
+
+CLI CHECKS PASSED

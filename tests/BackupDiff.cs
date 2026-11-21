@@ -11,6 +11,14 @@ namespace Hpd20Ctrl
         public static int Run(string pathA, string pathB, string reportPath)
         {
             StringBuilder log = new StringBuilder();
+            if (!File.Exists(pathA) || !File.Exists(pathB))
+            {
+                log.AppendLine("SKIP  one of the two files is missing:");
+                log.AppendLine("      A: " + pathA + (File.Exists(pathA) ? "" : "  (not found)"));
+                log.AppendLine("      B: " + pathB + (File.Exists(pathB) ? "" : "  (not found)"));
+                Write(log, reportPath);
+                return 0;
+            }
             string errA, errB;
             HpdBackup a = HpdBackup.Load(pathA, out errA);
             HpdBackup b = HpdBackup.Load(pathB, out errB);
@@ -151,4 +159,5 @@ namespace Hpd20Ctrl
         }
     }
 }
+
 

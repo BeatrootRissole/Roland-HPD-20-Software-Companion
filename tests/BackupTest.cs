@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
@@ -173,6 +173,15 @@ namespace Hpd20Ctrl
             };
 
             string error;
+            if (!File.Exists(path))
+            {
+                log.AppendLine("SKIP  " + path + " not found - plug the stick in or pass a local copy");
+                log.AppendLine();
+                log.AppendLine("REAL BACKUP CHECKS SKIPPED");
+                Console.Write(log.ToString());
+                if (!string.IsNullOrEmpty(reportPath)) File.WriteAllText(reportPath, log.ToString(), Encoding.UTF8);
+                return 0;
+            }
             HpdBackup b = HpdBackup.Load(path, out error);
             check("file loads", b != null);
             if (b == null)
@@ -234,7 +243,7 @@ namespace Hpd20Ctrl
             if (identical) for (int i = 0; i < a.Length; i++) if (a[i] != c[i]) { identical = false; break; }
             check("save reproduces the file byte for byte", identical);
 
-            // edit → save → reload
+            // edit â†’ save â†’ reload
             HpdBackup m = HpdBackup.Load(path, out error);
             string originalName = m.GetKitName(0);
             m.SetKitName(0, "RNDTRIP");
@@ -274,3 +283,4 @@ namespace Hpd20Ctrl
         }
     }
 }
+

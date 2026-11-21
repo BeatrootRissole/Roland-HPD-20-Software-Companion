@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -45,9 +45,14 @@ namespace Hpd20Ctrl
             note("looking for a port matching '" + match + "'");
             note("output: " + (outName != null ? "[" + outIdx + "] " + outName : "not found"));
             note("input : " + (inName != null ? "[" + inIdx + "] " + inName : "not found"));
-            check("HPD-20 output port found", outIdx >= 0);
-            check("HPD-20 input port found", inIdx >= 0);
-            if (outIdx < 0 || inIdx < 0) return Write(log, reportPath, failures);
+            if (outIdx < 0 || inIdx < 0)
+            {
+                log.AppendLine();
+                log.AppendLine("SKIP  no HPD-20 MIDI port found - connect the instrument and run this again");
+                return Write(log, reportPath, 0);
+            }
+            check("HPD-20 output port found", true);
+            check("HPD-20 input port found", true);
 
             // ---- open
             MidiSession session = new MidiSession();
@@ -155,6 +160,7 @@ namespace Hpd20Ctrl
         }
     }
 }
+
 
 
 
