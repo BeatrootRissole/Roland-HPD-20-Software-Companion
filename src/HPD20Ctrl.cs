@@ -2654,8 +2654,14 @@ namespace Hpd20Ctrl
             }
             if (outSel < 0 || inSel < 0)
             {
-                check("loopback ports available for UI test", false);
-                return failures;
+                // a machine without a MIDI loopback cannot exercise the UI path; that is not a failure
+                string skip = "SKIP  no MIDI loopback port pair - the UI path cannot be exercised here";
+                sb.AppendLine(skip);
+                if (!string.IsNullOrEmpty(reportPath)) { try { File.AppendAllText(reportPath, skip + Environment.NewLine, Encoding.UTF8); } catch { } }
+                sb.AppendLine();
+                sb.AppendLine("UI CHECKS SKIPPED");
+                Console.Write(sb.ToString());
+                return 0;
             }
             _cmbOut.SelectedIndex = outSel;
             _cmbIn.SelectedIndex = inSel;
