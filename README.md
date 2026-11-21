@@ -1,4 +1,4 @@
-# HPD-20 Companion
+# Roland HPD-20 Software Companion for Windows 10+
 
 **A Windows companion app for the Roland HandSonic HPD-20.** Play the pads from your screen, change
 kits over MIDI, convert samples to the import format, mirror a real backup onto the pad display, and
