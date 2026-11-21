@@ -1,0 +1,73 @@
+name: release
+
+# Publishing a tag is the whole release process: build, test, then attach the executables to a
+# GitHub release. Nothing is committed from CI - the tag names the source that produced the build.
+
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Build
+        shell: pwsh
+        run: .\build.ps1
+
+      - name: Test before publishing
+        shell: pwsh
+        run: |
+          .\build.ps1 -Test
+          if ($LASTEXITCODE -ne 0) { throw "self-tests failed - not publishing" }
+
+      - name: Read the version from the tag
+        id: version
+        shell: pwsh
+        run: |
+          $tag = "${{ github.ref_name }}"
+          "tag=$tag" >> $env:GITHUB_OUTPUT
+          $notes = ""
+          if (Test-Path CHANGELOG.md) {
+            $lines = Get-Content CHANGELOG.md
+            $start = ($lines | Select-String -Pattern "^##\s+$([regex]::Escape($tag.TrimStart('v')))\b" | Select-Object -First 1).LineNumber
+            if ($start) {
+              $collect = @()
+              for ($i = $start; $i -lt $lines.Count; $i++) {
+                if ($i -gt $start -and $lines[$i] -match '^##\s') { break }
+                $collect += $lines[$i]
+              }
+              $notes = ($collect -join "`n").Trim()
+            }
+          }
+          if (-not $notes) { $notes = "See CHANGELOG.md for details." }
+          "notes<<EOF" >> $env:GITHUB_OUTPUT
+          $notes >> $env:GITHUB_OUTPUT
+          "EOF" >> $env:GITHUB_OUTPUT
+
+      - name: Collect the assets
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force -Path out | Out-Null
+          Copy-Item dist\HPD20Companion.exe out\ | Out-Null
+          Copy-Item dist\cli\hpd20cli.exe out\HPD20Companion-CLI.exe | Out-Null
+          Get-ChildItem out | Format-Table Name, Length
+
+      - name: Create the release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: HPD-20 Companion ${{ steps.version.outputs.tag }}
+          body: ${{ steps.version.outputs.notes }}
+          draft: false
+          prerelease: false
+          files: |
+            out/HPD20Companion.exe
+            out/HPD20Companion-CLI.exe
