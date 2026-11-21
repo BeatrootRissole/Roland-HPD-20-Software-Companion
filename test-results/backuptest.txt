@@ -1,0 +1,42 @@
+﻿PASS  kit block at 6922
+PASS  pad block at 51596
+PASS  224-byte kits / 200 kits
+PASS  68-byte pads / 17 per kit
+PASS  minimum size matches layout
+PASS  created image size
+PASS  file = image + 16-byte trailer
+PASS  trailer is MD5 of the image
+PASS  reload succeeds
+PASS  md5 validated on load
+PASS  kit name
+PASS  kit sub name
+PASS  kit volume
+PASS  hh volume
+PASS  pad sensitivity (-10)
+PASS  balance (5)
+PASS  pad instrument (5)
+PASS  pad instrument layer B (42)
+PASS  pad pitch (-1200)
+PASS  pad volume (80)
+PASS  pad pan (-20)
+PASS  pad ambient (30)
+PASS  pad muffling (40)
+PASS  pad sweep (-7)
+PASS  midi note (60)
+PASS  midi gate (25)
+PASS  trigger mode (1)
+PASS  mono/poly (1)
+PASS  mute group (3)
+PASS  fixed velocity (99)
+PASS  velocity fade (12)
+PASS  layer mode (2)
+PASS  last kit name
+PASS  untouched kit is empty
+PASS  12-char name round trip
+PASS  16-char sub name round trip
+PASS  corrupt file is flagged
+PASS  short file refused
+PASS  resaved md5 is valid
+PASS  resaved value persisted
+
+BACKUP CHECKS PASSED

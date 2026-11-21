@@ -1,0 +1,25 @@
+﻿      looking for a port matching 'HPD'
+      output: [12] HPD-20
+      input : [11] HPD-20
+PASS  HPD-20 output port found
+PASS  HPD-20 input port found
+PASS  ports open
+PASS  identity request sent
+PASS  identity reply received
+      reply: F0 7E 10 06 02 41 78 02 00 00 00 01 00 00 F7
+      manufacturer 0x41 (Roland)
+      device id    0x10
+      family       0x7802   member 0x0000
+      firmware rev bytes 00 01 00 00
+PASS  reply is from Roland
+PASS  family code is 7802 (HPD-20)
+PASS  note on sent to M1 (60)
+PASS  note off sent
+      sent note 60 on ch1 and All Sound Off afterwards
+PASS  program change sent (kit 001)
+      no program-change echo seen (Program Change Tx may be OFF) - the kit change itself cannot be read back
+      messages received during the run: 0 (notes 0, CC 0, active sensing 0)
+PASS  disconnect completed in under 2 s
+      teardown took 2 ms
+
+HARDWARE CHECKS PASSED

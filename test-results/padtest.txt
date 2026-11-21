@@ -1,0 +1,32 @@
+﻿PASS  centre is M5
+PASS  upper-left is M3
+PASS  upper-right is M4
+PASS  lower-left is M1
+PASS  lower-right is M2
+PASS  top-left of rim is S3
+PASS  top of rim is S4 or S5
+PASS  top-right of rim is S6
+PASS  far left of rim is S1
+PASS  far right of rim is S8
+PASS  bottom rim is empty
+PASS  bottom-left rim is empty
+PASS  bottom-right rim is empty
+PASS  D-BEAM is at the top
+PASS  D-BEAM is not on the right any more
+PASS  TRIG IN head is clickable
+PASS  TRIG IN rim is clickable
+PASS  HH CTRL is clickable
+PASS  Foot SW 1 is clickable
+PASS  Foot SW 2 is clickable
+PASS  M1 default note 60
+PASS  M5 default note 64
+PASS  S1 default note 65
+PASS  S8 default note 72
+PASS  D-BEAM default note 73
+PASS  TRIG IN head default 74
+PASS  TRIG IN rim default 75
+PASS  HH CTRL default 76
+PASS  foot switches have no note
+PASS  13 playable pads present
+
+PAD CHECKS PASSED

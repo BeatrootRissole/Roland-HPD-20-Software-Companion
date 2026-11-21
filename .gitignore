@@ -1,0 +1,19 @@
+# Build output
+dist/
+*.exe
+*.pdb
+*.obj
+
+# Test scratch (the recorded results in test-results/ are committed on purpose)
+*.tmp
+*.log
+
+# Editor / OS noise
+.vs/
+.vscode/
+.idea/
+Thumbs.db
+desktop.ini
+
+# Local user data written by the app (never in the repo)
+*.ini.bak

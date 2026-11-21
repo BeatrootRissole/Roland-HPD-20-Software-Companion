@@ -1,0 +1,23 @@
+﻿PASS  file loads
+  file      BKUP-001.HS0
+  size      12632964 bytes + 16
+  header    name='BKtest'  firmware='1.030069'
+PASS  MD5 trailer validates
+PASS  header name present
+PASS  firmware string present
+  kits      200 of 200 have names
+PASS  kit block decodes (>=1 named kit)
+PASS  first kit name is printable
+PASS  first kit sub name is printable
+PASS  kit 1 M1..M5 notes are 60..64
+  highest instrument number in first 5 kits: 862
+PASS  pad instruments are sane
+  chains    15 of 15 have names, first='PERCUSSION'
+PASS  chain names decode
+PASS  save reproduces the file byte for byte
+PASS  edited file reloads with a valid MD5
+PASS  edited kit name persists
+PASS  edit does not disturb other bytes
+PASS  original kit name recoverable
+
+REAL BACKUP CHECKS PASSED

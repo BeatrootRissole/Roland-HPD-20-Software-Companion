@@ -1,0 +1,18 @@
+﻿PASS  48k stereo processed
+PASS  48k resampled flag
+PASS  output rate 44100
+PASS  output mono
+PASS  output 16-bit
+PASS  duration preserved (~1 s)
+PASS  normalised peak > 0.9
+PASS  44.1k processed
+PASS  44.1k not resampled
+PASS  44.1k stays 44100/mono
+PASS  8-bit source decoded and resampled
+PASS  24-bit stereo source decoded
+PASS  24-bit output is 44.1k mono
+PASS  over-length file truncated
+PASS  truncated to 0.5 s
+PASS  silence trimmed
+
+AUDIO CHECKS PASSED

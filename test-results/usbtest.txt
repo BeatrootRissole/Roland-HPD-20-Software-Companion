@@ -1,0 +1,18 @@
+﻿PASS  export returned no error
+PASS  export wrote 3 files
+PASS  3 WAVs in the root
+PASS  root files are not in a subfolder
+PASS  root names are NNN_name.WAV
+PASS  root names are pure ASCII
+      root: 001_Kick.WAV 002_Snare (tight).WAV 003_Gre tzend.WAV
+PASS  organised folder created
+PASS  archive holds 3 wavs
+PASS  index.csv written
+PASS  READ-ME written
+PASS  index has header + 3 rows
+PASS  every exported WAV is 44.1 kHz 16-bit
+PASS  second export works
+PASS  both pack folders exist
+PASS  root now has 4 wavs
+
+USB CHECKS PASSED

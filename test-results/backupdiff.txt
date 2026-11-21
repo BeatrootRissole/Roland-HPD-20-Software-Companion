@@ -1,0 +1,16 @@
+﻿A: BKUP-001.HS0   12632964 bytes   md5 ok
+B: BKUP-001.HS0   12632964 bytes   md5 ok
+
+backup name: 'BKFactory' -> 'BKtest'
+
+known-field changes: 0 kit field(s), 0 pad field(s)
+differing bytes in the image: 18 of 12632964
+  0x00000A..0x00000C  (3 bytes)  header (name / firmware)   'F'->'t' 'a'->'e' 'c'->'s' 
+  0x00000E..0x000010  (3 bytes)  header (name / firmware)   'o'->' ' 'r'->' ' 'y'->' ' 
+  0x0000BC..0x0000BC  (1 byte)  system settings (undecoded)   05->07 
+  0x00041C..0x00041D  (2 bytes)  system settings (undecoded)   00->05 06->07 
+  0x000420..0x000422  (3 bytes)  system settings (undecoded)   10->0C 0A->07 02->00 
+  0x000424..0x000425  (2 bytes)  system settings (undecoded)   00->01 00->0D 
+  0x000458..0x000458  (1 byte)  system settings (undecoded)   03->09 
+  0x000C1C..0x000C1D  (2 bytes)  system settings, second block (undecoded)   01->04 02->03 
+  0x000C38..0x000C38  (1 byte)  system settings, second block (undecoded)   01->00 

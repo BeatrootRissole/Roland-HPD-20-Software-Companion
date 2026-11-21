@@ -1,0 +1,17 @@
+UI self-test
+PASS  connect through UI
+PASS  identity request did not throw
+PASS  kit 043 selected
+PASS  backup loaded for pad mirroring
+PASS  pad M1 note comes from the backup
+PASS  pad M1 shows its instrument
+PASS  pad tiles carry a kit caption
+PASS  D-BEAM reports its CC
+PASS  HH CTRL reports CC4
+PASS  monitor shows TX bank/pc
+PASS  monitor shows RX program change
+PASS  kit label updated
+PASS  disconnect through UI
+PASS  no crash after disconnect
+
+UI CHECKS PASSED

@@ -1,0 +1,23 @@
+﻿MIDI outputs: 13, inputs: 12
+PASS  out enumeration readable
+PASS  in enumeration readable
+PASS  kit 1 -> bank 0/0 pc 1
+PASS  kit 128 -> bank 0/0 pc 128
+PASS  kit 129 -> bank 1/0 pc 1
+PASS  kit 200 -> bank 1/0 pc 72
+PASS  checksum (10 00 00 00) = 0x70
+PASS  hex parse 'F0 7E 10 06 01'
+PASS  hex parser rejects bad byte
+PASS  program change decode
+PASS  note on decode
+PASS  CC decode
+PASS  open output 0
+PASS  send program change on output 0
+PASS  send identity request sysex
+PASS  open input 0 with SysEx buffers
+PASS  open loopback pair (Default Basic App Loopback)
+PASS  loopback received program change 0x2A
+      decoded: Prog Chg  ch1  program 43 (42) at 10:56:20.948
+PASS  loopback received 6-byte SysEx intact
+
+ALL CHECKS PASSED

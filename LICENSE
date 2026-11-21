@@ -1,6 +1,6 @@
 MIT License
 
-Copyright (c) 2026 Beatroot
+Copyright (c) 2026 HPD-20 Companion contributors
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -19,3 +19,19 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+---
+
+Third-party notice
+
+The backup-file layout used by this project was derived from the "hpd20"
+project by Jürgen Schwietering (https://github.com/scjurgen/hpd-20), published
+under the MIT licence. The instrument-name table was generated from that
+project's data, which in turn lists the instrument names of the Roland
+HandSonic HPD-20.
+
+Roland, HandSonic, D-BEAM and V-Drums are trademarks of Roland Corporation.
+This project is not affiliated with or endorsed by Roland.
+
+Loading a backup file into an HPD-20 erases every setting on the instrument.
+Use this software at your own risk and keep a copy of any original file.
