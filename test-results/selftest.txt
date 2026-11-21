@@ -17,7 +17,7 @@ PASS  send identity request sysex
 PASS  open input 0 with SysEx buffers
 PASS  open loopback pair (Default Basic App Loopback)
 PASS  loopback received program change 0x2A
-      decoded: Prog Chg  ch1  program 43 (42) at 23:24:25.946
+      decoded: Prog Chg  ch1  program 43 (42) at 23:39:01.483
 PASS  loopback received 6-byte SysEx intact
 
 ALL CHECKS PASSED

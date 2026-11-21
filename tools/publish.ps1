@@ -68,14 +68,8 @@ function Invoke-GitHub {
     }
     catch {
         $detail = ''
-        try {
-            $resp = $_.Exception.Response
-            if ($resp) {
-                $reader = New-Object System.IO.StreamReader($resp.GetResponseStream())
-                $detail = $reader.ReadToEnd()
-            }
-        } catch { }
-        throw ("GitHub {0} {1} failed: {2} {3}" -f $Method, $Uri, $_.Exception.Message, $detail)
+        if ($_.ErrorDetails -and $_.ErrorDetails.Message) { $detail = $_.ErrorDetails.Message }
+        throw ("GitHub {0} {1} failed: {2}`n  {3}" -f $Method, $Uri, $_.Exception.Message, $detail)
     }
 }
 
