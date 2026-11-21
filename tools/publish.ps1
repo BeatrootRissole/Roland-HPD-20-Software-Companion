@@ -230,7 +230,16 @@ if ($Tag) {
         $name = [System.IO.Path]::GetFileName($exePath)
         $uploadUri = ("https://uploads.github.com/repos/{0}/{1}/releases/{2}/assets?name={3}" -f $Owner, $Repo, $release.id, $name)
         $bytes = [System.IO.File]::ReadAllBytes($exePath)
-        $asset = Invoke-GitHub -Method POST -Uri $uploadUri -Body $bytes -ContentType 'application/octet-stream'
+        # Invoke-RestMethod stringifies a byte[] body ("[77,90,...]"), which corrupts the asset.
+        # WebClient.UploadData sends the raw bytes.
+        $asset = $null
+        $wc = New-Object System.Net.WebClient
+        $wc.Headers.Add('Authorization', "Bearer $Token")
+        $wc.Headers.Add('Accept', 'application/vnd.github+json')
+        $wc.Headers.Add('User-Agent', 'hpd20-companion-publisher')
+        $wc.Headers.Add('Content-Type', 'application/octet-stream')
+        $json = [System.Text.Encoding]::UTF8.GetString($wc.UploadData($uploadUri, 'POST', $bytes))
+        $asset = $json | ConvertFrom-Json
         Write-Host ("asset      : {0} ({1:N0} bytes) {2}" -f $asset.name, $asset.size, $asset.browser_download_url)
     }
 }

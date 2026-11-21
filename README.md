@@ -199,7 +199,8 @@ optionally with `-BackupPath <file>` to include a real-backup check. `-SkipCli` 
 
 Tags drive it. Pushing a tag that starts with `v` runs `.github/workflows/release.yml`, which builds,
 runs every suite, and attaches `HPD20Companion.exe` and the CLI to the release, taking the notes from the
-matching `CHANGELOG.md` entry:
+matching `CHANGELOG.md` entry. (The workflows are in the repository; a fine-grained token needs the
+**Workflows** permission to push them, which is why the first commit was made without them.)
 
 ```powershell
 git tag v1.6.2
