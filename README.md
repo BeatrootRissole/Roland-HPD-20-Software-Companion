@@ -322,6 +322,13 @@ Big-endian integers, raw ASCII names. Layout derived from the
 - Auditioning plays the file through the PC's sound card, not the instrument's own voicing, and stopping
   playback is abrupt (a click is possible).
 
+## Related projects
+
+- **[TriggerMap](https://github.com/janralf-lgtm/hpd20-kit-editor)** — an independent, cross-platform
+  (macOS and Windows) kit and pad editor for the same instrument. Worth a look if you are on a Mac.
+- **[scjurgen/hpd-20](https://github.com/scjurgen/hpd-20)** — the Python library this project's
+  understanding of the backup file format came from.
+
 ## Credits
 
 - [Roland HPD-20 MIDI Implementation](https://static.roland.com/assets/media/pdf/HPD-20_MI.pdf) and
